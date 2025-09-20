@@ -1,5 +1,5 @@
 # EE5110-CA2-event-camera
-# Event Camera Simulator (MATLAB)
+> Event Camera Simulator (MATLAB)
 
 This repository contains a MATLAB implementation of a simplified **Event Camera Simulator**, developed as part of the **EE5110/EE6110 Selected Topics in Automation and Control** course project (Segment B: Event-based Vision).
 
@@ -7,16 +7,14 @@ This repository contains a MATLAB implementation of a simplified **Event Camera 
 Event cameras (Dynamic Vision Sensor, DVS) output asynchronous events instead of conventional image frames.  
 Each event is triggered when the **log intensity change** at a pixel exceeds a threshold:
 
-\[
+$$
 \pm C = \log I(\mathbf{x}, t) - \log I(\mathbf{x}, t - \Delta t)
-\]
+$$
 
 - **Input**: High frame rate video (≥300 fps, 960 fps preferred).  
 - **Output**: Event stream `[(t, x, y, p)]` and visualization video (input + overlay of events).  
 
 This project demonstrates the principles of event generation, pixel array arbitration, and event visualization in MATLAB.
-
----
 
 ## 🚀 Features
 - **Dataset Preprocessing**: Convert high FPS video into frame sequence.  
@@ -28,8 +26,6 @@ This project demonstrates the principles of event generation, pixel array arbitr
 - **Optional Extensions**:
   - Multi-fps support.
   - Noise models (threshold jitter, leak events...).
-
----
 
 ## 📊 Example Results
 	•	Input: 960 fps video of rotating object.
