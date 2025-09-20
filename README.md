@@ -36,4 +36,11 @@ This project demonstrates the principles of event generation, pixel array arbitr
 	•	Output: Event stream visualized as event frames (ON events = red, OFF events = blue).
 
 ## 👨‍💻 Authors
-	•	Group Members, EE5110/EE6110, National University of Singapores
+Group Members, EE5110/EE6110, National University of Singapores
+ 
+## 📚 References & Resources
+- E. Mueggler et al., The Event-Camera Dataset and Simulator: Event-based Data for Pose Estimation, Visual Odometry, and SLAM, IJRR 2017.
+- Lec01–Lec02, Segment B, EE5110/EE6110 Course Material.
+- [https://github.com/uzh-rpg/event-based_vision_resources?tab=readme-ov-file#datasets](https://github.com/uzh-rpg/event-based_vision_resources)
+- [Event-based Vision, Event Cameras, Event Camera SLAM](https://rpg.ifi.uzh.ch/davis_data.html)
+ 
