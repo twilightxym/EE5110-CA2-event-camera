@@ -44,6 +44,7 @@ Group Members, EE5110/EE6110, National University of Singapores
 We use the [X4K100FPS dataset](https://github.com/JihyongOh/XVFI#X4K1000FPS). The X-TEST split contains 15 video clips, each consisting of 33 consecutive frames captured at 4K resolution and 1000 fps.
 
 ⚠️ To avoid decoding failures on some Windows systems when handling native 4K videos, we downsampled all clips to 2K resolution before processing. This ensures cross-platform compatibility while preserving temporal fidelity.
+NOTES: YOU DON'T NEED TO RUN IT AGAIN!!! ALL VIDEOS IN THE `test_video` FOLDER ARE 2K RESOLUTION ALREADY.
 
 ---
 # Description of Key Functions/Scripts
