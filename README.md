@@ -160,3 +160,29 @@ ensuring a consistent time axis independent of container fps.
 - Container fps (vr.FrameRate) may not equal the true capture rate (e.g., test clips are slow-motion at 25 fps).
 - Always provide the true fps for correct event generation timing.
 - Recommended to downscale (resize_to) for faster simulation when working with large videos.
+
+
+## 📌 demo_array_design.m: Full-Resolution Pixel Array Construction 
+This script scales single-pixel simulation to **full-image processing**, using parallel computing to generate event streams for every pixel in the input frame stack. It fixes parallel stability issues and provides end-to-end array-level event analysis.
+
+### 📥 Dependencies
+- Precomputed `pixel_analysis_data.mat` (from `demo_pixel_design.m`).
+- `pixel_events_pro.m` (extended pixel model).
+
+### 🚀 Key Workflow
+1. **Load Data**: Import frame tensor (Y), timestamps (t_us), and resolution (H/W) from preprocessed data.
+2. **Configure Parameters**: Set contrast threshold (C), refractory period, and noise toggles via `opts` struct.
+3. **Parallel Processing**: Use row-wise `parfor` to generate events for each pixel, storing row-level results in a cell array.
+4. **Merge & Sort**: Combine row events into a global stream, sorted by timestamp (critical for asynchronous consistency).
+5. **Analyze & Save**: Compute event density/rate/interval stats, save full results as `.mat`, and export a CSV sample.
+6. **Visualize**: Generate spatial density heatmap, temporal histogram, and polarity pie chart.
+
+### ⚙️ Core Features
+- **Full-Resolution Support**: Processes every pixel (no sampling) to mimic real event camera hardware.
+- **Stable Parallelism**: Row-wise distribution reduces memory overhead vs. pixel-wise parallelism.
+- **Comprehensive Metrics**: Total events, per-pixel average, event rate, and polarity ratio.
+- **Dual Output**: Full event stream (`.mat`) and validation sample (`.csv`).
+
+### 📖 Notes
+- Replace `parfor` with `for` if Parallel Computing Toolbox is unavailable (slower for high resolutions).
+- Adjust `C` based on input fps (e.g., 0.03–0.08 for 1000 fps) to balance event density and noise.

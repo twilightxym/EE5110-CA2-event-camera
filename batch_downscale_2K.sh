@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # 处理当前目录（及其子目录）下的所有视频
-INPUT_DIR="."
+INPUT_DIR="D:/Matlab/PROJECT/EE5110-CA2-event-camera/test_video"
 FPS_CFR=""   # 可留空；如需强制容器帧率可写：-r 30
 
 # 检查 ffmpeg
@@ -14,9 +14,19 @@ fi
 # 递归查找视频文件
 find "$INPUT_DIR" -type f \( -iname "*.mp4" -o -iname "*.mov" -o -iname "*.m4v" \) | \
 while IFS= read -r inpath; do
+  # 修正inpath丢失盘符的情况
+  if [[ "$inpath" =~ ^:/ ]]; then
+    inpath="D$inpath"
+  fi
+
   indir="$(dirname "$inpath")"     # 原视频所在目录（比如 ./encoded_test/Type1）
   base="$(basename "$inpath")"     # 文件名含后缀
   name="${base%.*}"                # 去后缀的文件名
+
+  # 修正indir丢失盘符的情况
+  if [[ "$indir" =~ ^:/ ]]; then
+    indir="D$indir"
+  fi
 
   outdir="${indir}/2K"             # 在同级建 2K 文件夹
   outfile="${outdir}/${name}_2k.mp4"

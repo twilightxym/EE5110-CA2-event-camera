@@ -82,3 +82,17 @@ subplot(2,1,2);
 stem(double(t_e)*1e-6, p_e, 'filled');
 xlabel('time (s)'); ylabel('polarity');
 title('Events (+1/-1)'); grid on;
+
+%% Save pixel data for full frame processing
+pixel_data.Y = Y;
+pixel_data.t_us = t_us;
+pixel_data.H = H;
+pixel_data.W = W;
+pixel_data.N = N;
+pixel_data.C = C;
+pixel_data.opts = opts;
+pixel_data.selected_pixel = [x, y];
+pixel_data.selected_events = [t_e, p_e];
+
+save('pixel_analysis_data.mat', 'pixel_data');
+fprintf('Pixel data saved for full frame processing.\n');
