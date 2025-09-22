@@ -4,23 +4,30 @@ clear; clc; close all;
 
 fprintf('=== Full Resolution Pixel Array Construction ===\n');
 
-%% ---- Load Data ----
-load('pixel_analysis_data.mat', 'pixel_data');
-Y = pixel_data.Y;
-t_us = pixel_data.t_us;
-H = pixel_data.H;
-W = pixel_data.W;
+%% ---- Load Video ----
+seq_dir   = '../test_video/Type1/TEST01_003_f0433_2k.mp4';   % path to your test video
+fps       = 1000;        % true frame rate of X4K1000FPS
+resize_to = [540 1024];  % optional downscale from 2K(2048x1080) for faster processing
+id = load_x4k_frames(seq_dir, fps, resize_to);
 
-fprintf('Processing complete %dx%d image (%d pixels)\n', W, H, W*H);
+Y = id.Y;
+t_us = id.t_us;
+H = id.H;
+W = id.W;
+N = id.N;
 
 %% ---- Configuration ----
 C = 0.5;
 opts = struct();
 opts.Lref0 = [];
-opts.refractory_us = 10000;
+opts.refractory_us = 1; %10000;
 opts.threshold_jitter = 0;
 opts.threshold_sigma_px = 0;
-opts.pr.enable = false;
+
+opts.pr.enable        = true;
+opts.pr.tau_dark_us   = 5000;     % larger time constant in dark regions
+opts.pr.tau_bright_us = 500;      % smaller time constant in bright regions
+
 opts.leak.enable = false;
 opts.timing_jitter.enable = false;
 
@@ -40,10 +47,12 @@ parfor y = 1:H
     
     for x = 1:W
         % Extract log-intensity sequence for current pixel
-        L_log = log(squeeze(Y(y, x, :)) + 1e-3);
+        L = squeeze(Y(y, x, :));
+        L_log = log(L + 1e-3);
         
         % Generate events for this pixel
-        [t_events, p_events] = pixel_events_pro(L_log, t_us, C, opts);
+        % [t_events, p_events] = pixel_events_pro(L_log, t_us, C, opts);
+        [t_events, p_events] = pixel_events_pro_fast(L_log, t_us, C, opts, L);
         
         if ~isempty(t_events)
             % Append events to row structure
@@ -80,7 +89,7 @@ for y = 1:H
 end
 
 processing_time = toc(start_time);
-fprintf('Processing completed in %.1f minutes\n', processing_time/60);
+fprintf('Processing completed in %.1f seconds\n', processing_time);
 
 %% ---- Results Analysis and Saving ----
 fprintf('\n=== Results Analysis ===\n');
@@ -148,7 +157,7 @@ end
 %% ---- Performance Statistics ----
 fprintf('\n=== Performance Statistics ===\n');
 fprintf('Total pixels processed: %d\n', W*H);
-fprintf('Total processing time: %.1f minutes\n', processing_time/60);
+fprintf('Total processing time: %.1f seconds\n', processing_time);
 fprintf('Processing speed: %.1f pixels/second\n', (W*H)/processing_time);
 
 if total_events > 0
@@ -183,7 +192,7 @@ fprintf('Total Pixels: %d\n', W*H);
 fprintf('Total Events Generated: %d\n', total_events);
 fprintf('Average Events per Pixel: %.3f\n', total_events/(W*H));
 fprintf('Overall Event Rate: %.0f events/second\n', event_rate);
-fprintf('Processing Time: %.1f minutes\n', processing_time/60);
+fprintf('Processing Time: %.1f seconds\n', processing_time);
 fprintf('Configuration: C=%.2f, refractory=%dμs\n', C, opts.refractory_us);
 
 if total_events > 0
