@@ -217,5 +217,5 @@ fprintf('Data saved for further analysis and visualization.\n');
 %% ---- Visualization ----
 if total_events > 0
     accum_time = 0.01; % 10 ms
-    visualize_event(id, sorted_events, accum_time, seq_dir); % color video on left
+    visualize_event_overlay(id, sorted_events, seq_dir, accum_time);
 end
