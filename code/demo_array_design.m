@@ -205,5 +205,17 @@ fprintf('\n=== PROCESSING COMPLETE ===\n');
 fprintf('Full resolution event camera array successfully constructed!\n');
 fprintf('Data saved for further analysis and visualization.\n');
 %% Visualize the output
-visualize_event_overlay('../Type2/TEST10_172_f1905_2k.mp4', ...
-                        sorted_events, fps, 0.05);
+%% Visualize the output
+
+% if total_events > 0
+%     % video + event frame
+%     visualize_event(id, sorted_events, 0.01);
+% 
+%     % Video + event frame + event edges
+%     % visualize_event(id, sorted_events, 0.01, true);
+% end
+%% ---- Visualization ----
+if total_events > 0
+    accum_time = 0.01; % 10 ms
+    visualize_event(id, sorted_events, accum_time, seq_dir); % color video on left
+end
