@@ -204,3 +204,6 @@ end
 fprintf('\n=== PROCESSING COMPLETE ===\n');
 fprintf('Full resolution event camera array successfully constructed!\n');
 fprintf('Data saved for further analysis and visualization.\n');
+%% Visualize the output
+visualize_event_overlay('../Type2/TEST10_172_f1905_2k.mp4', ...
+                        sorted_events, fps, 0.05);
