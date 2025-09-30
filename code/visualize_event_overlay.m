@@ -42,5 +42,4 @@ function visualize_event_overlay(videoFile, sorted_events, fps, accum_time)
         frameCount = frameCount + 1;
     end
 end
-visualize_event_overlay('../Type2/TEST10_172_f1905_2k.mp4', ...
-                        sorted_events, fps, 0.05);
+
