@@ -204,17 +204,11 @@ end
 fprintf('\n=== PROCESSING COMPLETE ===\n');
 fprintf('Full resolution event camera array successfully constructed!\n');
 fprintf('Data saved for further analysis and visualization.\n');
-%% Visualize the output
-%% Visualize the output
 
-% if total_events > 0
-%     % video + event frame
-%     visualize_event(id, sorted_events, 0.01);
-% 
-%     % Video + event frame + event edges
-%     % visualize_event(id, sorted_events, 0.01, true);
-% end
-%% ---- Visualization ----
+%% Visualize the output
+%% ---- Visualization ---- to output the origianl video side by side along with the event frame video and edge detected video
+%visualize_event(id, sorted_events, 0.01, seq_dir, true);
+%% ---- Visualization ---- to output the event frame to overlap on the original video
 if total_events > 0
     accum_time = 0.01; % 10 ms
     visualize_event_overlay(id, sorted_events, seq_dir, accum_time);
