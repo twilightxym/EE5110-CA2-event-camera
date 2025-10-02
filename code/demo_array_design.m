@@ -210,21 +210,16 @@ fprintf('Data saved for further analysis and visualization.\n');
 %visualize_event(id, sorted_events, 0.01, seq_dir, true);
 %% ---- Visualization ---- to output the event frame to overlap on the original video
 %fprintf('Visualization of event frame overlayed on the input video')
-%if total_events > 0
-    %accum_time = 0.05; % 50 ms
-    %accum_time = input('Enter accumulation time in seconds (e.g. 0.01): ');
-    %if accum_time < 0.001
-        %fprintf('Accumulation time too small. Using minimum = 0.001 s (1 ms)\n');
-        %accum_time = 0.001;
-    %elseif accum_time > 0.02
-        %fprintf('Accumulation time too large. Using maximum = 0.02 s (20 ms)\n');
-        %accum_time = 0.02;
-   %end
-    %visualize_event_overlay(id, sorted_events, seq_dir, accum_time);
-%end
-%fprintf('Visualization of event frame overlayed on the input video')
-%if total_events > 0
-    %accum_time = input('Enter accumulation time in seconds (e.g. 0.01): ');
-    %accum_time = min(accum_time, 0.001); % enforce minimum of 1 ms
-    %visualize_event_overlay(id, sorted_events, seq_dir, accum_time);
-%end
+if total_events > 0
+    %accum_time = 0.01; % 10 ms % direct initialisation of accumulated time without user interference
+    accum_time = input('Enter accumulation time in seconds (e.g. 0.01): ');
+    if accum_time < 0.001
+        fprintf('Accumulation time too small. Using minimum = 0.001 s (1 ms)\n');
+        accum_time = 0.001;
+    elseif accum_time > 0.02
+        fprintf('Accumulation time too large. Using maximum = 0.02 s (20 ms)\n');
+        accum_time = 0.02;
+   end
+    visualize_event_overlay(id, sorted_events, seq_dir, accum_time);
+end
+
