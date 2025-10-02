@@ -211,7 +211,7 @@ fprintf('Data saved for further analysis and visualization.\n');
 %% ---- Visualization ---- to output the event frame to overlap on the original video
 %fprintf('Visualization of event frame overlayed on the input video')
 if total_events > 0
-    %accum_time = 0.01; % 10 ms % direct initialisation of accumulated time without user interference
+    %accum_time = 0.01; % 10 ms % direct initialisation of accumulated time without user description
     accum_time = input('Enter accumulation time in seconds (e.g. 0.01): ');
     if accum_time < 0.001
         fprintf('Accumulation time too small. Using minimum = 0.001 s (1 ms)\n');
