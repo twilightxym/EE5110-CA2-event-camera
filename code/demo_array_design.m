@@ -222,9 +222,9 @@ fprintf('Data saved for further analysis and visualization.\n');
    %end
     %visualize_event_overlay(id, sorted_events, seq_dir, accum_time);
 %end
-fprintf('Visualization of event frame overlayed on the input video')
-if total_events > 0
-    accum_time = input('Enter accumulation time in seconds (e.g. 0.01): ');
-    accum_time = min(accum_time, 0.001); % enforce minimum of 1 ms
-    visualize_event_overlay(id, sorted_events, seq_dir, accum_time);
-end
+%fprintf('Visualization of event frame overlayed on the input video')
+%if total_events > 0
+    %accum_time = input('Enter accumulation time in seconds (e.g. 0.01): ');
+    %accum_time = min(accum_time, 0.001); % enforce minimum of 1 ms
+    %visualize_event_overlay(id, sorted_events, seq_dir, accum_time);
+%end
