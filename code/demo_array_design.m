@@ -5,7 +5,29 @@ clear; clc; close all;
 fprintf('=== Full Resolution Pixel Array Construction ===\n');
 
 %% ---- Load Video ----
-seq_dir   = '../test_video/Type1/TEST01_003_f0433_2k.mp4';   % path to your test video
+% Dataset/
+% ├── Type3/
+% │   ├── TEST15_148_f0465_2k.mp4
+% │   ├── TEST14_146_f1761_2k.mp4
+% │   ├── TEST13_133_f4593_2k.mp4
+% │   ├── TEST12_087_f2721_2k.mp4
+% │   └── TEST11_078_f4977_2k.mp4
+% │
+% ├── Type2/
+% │   ├── TEST10_172_f1905_2k.mp4
+% │   ├── TEST09_112_f0177_2k.mp4
+% │   ├── TEST08_079_f0321_2k.mp4
+% │   ├── TEST07_076_f1889_2k.mp4
+% │   └── TEST06_001_f0273_2k.mp4
+% │
+% └── Type1/
+%     ├── TEST05_158_f0321_2k.mp4
+%     ├── TEST04_140_f3889_2k.mp4
+%     ├── TEST03_081_f4833_2k.mp4
+%     ├── TEST02_045_f0465_2k.mp4
+%     └── TEST01_003_f0433_2k.mp4
+
+seq_dir   = '../test_video/Type1/TEST03_081_f4833_2k.mp4';   % path to your test video
 fps       = 1000;        % true frame rate of X4K1000FPS
 resize_to = [540 1024];  % optional downscale from 2K(2048x1080) for faster processing
 id = load_x4k_frames(seq_dir, fps, resize_to);
@@ -19,8 +41,10 @@ N = id.N;
 %% ---- Configuration ----
 C = 0.5;
 opts = struct();
+
+opts.time_resolution_us = 20;
 opts.Lref0 = [];
-opts.refractory_us = 1; %10000;
+opts.refractory_us = 0;
 opts.threshold_jitter = 0;
 opts.threshold_sigma_px = 0;
 
@@ -51,8 +75,9 @@ parfor y = 1:H
         L_log = log(L + 1e-3);
         
         % Generate events for this pixel
+        [t_events, p_events] = pixel_events(L_log, t_us, C, opts);
         % [t_events, p_events] = pixel_events_pro(L_log, t_us, C, opts);
-        [t_events, p_events] = pixel_events_pro_fast(L_log, t_us, C, opts, L);
+        % [t_events, p_events] = pixel_events_pro_fast(L_log, t_us, C, opts, L);
         
         if ~isempty(t_events)
             % Append events to row structure
@@ -206,20 +231,14 @@ fprintf('Full resolution event camera array successfully constructed!\n');
 fprintf('Data saved for further analysis and visualization.\n');
 
 %% Visualize the output
-%% ---- Visualization ---- to output the origianl video side by side along with the event frame video and edge detected video
+% ---- Visualization ---- to output the origianl video side by side along with the event frame video and edge detected video
 %visualize_event(id, sorted_events, 0.01, seq_dir, true);
-%% ---- Visualization ---- to output the event frame to overlap on the original video
-%fprintf('Visualization of event frame overlayed on the input video')
+
+
+% ---- Visualization ---- to output the event frame to overlap on the original video
+fprintf('Visualization of event frame overlayed on the input video')
 if total_events > 0
-    %accum_time = 0.01; % 10 ms % direct initialisation of accumulated time without user description
-    accum_time = input('Enter accumulation time in seconds (e.g. 0.01): ');
-    if accum_time < 0.001
-        fprintf('Accumulation time too small. Using minimum = 0.001 s (1 ms)\n');
-        accum_time = 0.001;
-    elseif accum_time > 0.02
-        fprintf('Accumulation time too large. Using maximum = 0.02 s (20 ms)\n');
-        accum_time = 0.02;
-   end
+    accum_time = 0.1;
     visualize_event_overlay(id, sorted_events, seq_dir, accum_time);
 end
 
