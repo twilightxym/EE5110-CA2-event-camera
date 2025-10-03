@@ -1,11 +1,6 @@
 function [video_data, sorted_events, stats] = run_full_resolution_demo_fixed(seq_dir, fps, resize_to, C, opts)
-% DEMO: Full Resolution Pixel Array Construction (FIXED)
-% Process the entire image without sampling - parallel fixed version
-%
+% DEMO: Pixel Array Construction
 % [video_data, sorted_events, stats] = run_full_resolution_demo_fixed(seq_dir, fps, resize_to, C, opts)
-%
-% - 不在内部绘图；统计信息通过返回值给到上层（脚本或 App）。
-% - 你可以把可视化（空间密度、时间直方图、饼图、overlay）交给 App 的按钮/回调去做。
 
     arguments
         seq_dir   (1,:) char
@@ -27,6 +22,7 @@ function [video_data, sorted_events, stats] = run_full_resolution_demo_fixed(seq
     N = id.N;
 
     %% ---- Configuration ----
+    if ~isfield(opts, 'time_resolution_us'); opts.time_resolution_us = 10; end
     if ~isfield(opts, 'Lref0'); opts.Lref0 = []; end
     if ~isfield(opts, 'refractory_us'); opts.refractory_us = 1; end
     if ~isfield(opts, 'threshold_jitter'); opts.threshold_jitter = 0; end
@@ -120,7 +116,6 @@ function [video_data, sorted_events, stats] = run_full_resolution_demo_fixed(seq
     stats.C                = C;
     stats.opts             = opts;
 
-    % 打包返回 video_data（供 overlay 使用）
     video_data = id;
 
     fprintf('\n=== SUMMARY REPORT ===\n');
@@ -139,7 +134,8 @@ end
 function out = iff(cond, a, b)
     if cond, out = a; else, out = b; end
 end
-% 
+
+
 % % ===== Example (optional, for standalone quick test) =====
 % if ~isdeployed && ~ismcc && ~isfolder('skip_this_block')
 %     % quick demo (remove or guard as needed)
