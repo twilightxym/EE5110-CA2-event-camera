@@ -5,7 +5,7 @@ clear; clc;
 seq_dir   = '../test_video/Type1/TEST01_003_f0433_2k.mp4';   % path to your test video
 fps       = 1000;               % true frame rate of X4K1000FPS
 resize_to = [540 1024];         % optional downscale from 2K (2048x1080) for faster processing
-id = load_x4k_frames(seq_dir, fps, resize_to);
+id = load_x2k_frames(seq_dir, fps, resize_to);
 
 Y = id.Y;
 t_us = id.t_us;
@@ -92,8 +92,10 @@ subplot(2,1,1);
 plot(double(t_us)*1e-6, L_log, '-o'); grid on;
 xlabel('time (s)'); ylabel('log-intensity');
 title(sprintf('Pixel (%d,%d) log-intensity', y,x));
+xlim([0, 0.035])
 
 subplot(2,1,2);
 stem(double(t_e)*1e-6, p_e, 'filled');
 xlabel('time (s)'); ylabel('polarity');
 title('Events (+1/-1)'); grid on;
+xlim([0, 0.035])

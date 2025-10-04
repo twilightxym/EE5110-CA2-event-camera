@@ -1,5 +1,5 @@
-function output = load_x4k_frames(video_path, fps_true, resize_to)
-% LOAD_X4K_FRAMES  Load frames from an mp4 video and reconstruct timestamps
+function output = load_x2k_frames(video_path, fps_true, resize_to)
+% LOAD_X2K_FRAMES  Load frames from an mp4 video and reconstruct timestamps
 % and grayscale data into a handy struct.
 %
 % Inputs:

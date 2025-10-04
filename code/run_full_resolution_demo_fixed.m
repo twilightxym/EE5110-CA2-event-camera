@@ -13,7 +13,7 @@ function [video_data, sorted_events, stats] = run_full_resolution_demo_fixed(seq
     fprintf('=== Full Resolution Pixel Array Construction ===\n');
 
     %% ---- Load Video ----
-    id = load_x4k_frames(seq_dir, fps, resize_to);
+    id = load_x2k_frames(seq_dir, fps, resize_to);
 
     Y = id.Y;
     t_us = id.t_us;

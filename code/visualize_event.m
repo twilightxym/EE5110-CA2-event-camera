@@ -5,7 +5,7 @@ function visualize_event(video_data, sorted_events, accum_time, video_path, show
 % Optional third panel: event edges
 %
 % Inputs:
-%   video_data    - struct from load_x4k_frames (grayscale frames, timestamps)
+%   video_data    - struct from load_x2k_frames (grayscale frames, timestamps)
 %   sorted_events - struct with fields t, x, y, p
 %   accum_time    - accumulation window in seconds (e.g., 0.01 = 10 ms)
 %   video_path    - path to original color video

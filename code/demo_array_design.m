@@ -30,7 +30,7 @@ fprintf('=== Full Resolution Pixel Array Construction ===\n');
 seq_dir   = '../test_video/Type1/TEST03_081_f4833_2k.mp4';   % path to your test video
 fps       = 1000;        % true frame rate of X4K1000FPS
 resize_to = [540 1024];  % optional downscale from 2K(2048x1080) for faster processing
-id = load_x4k_frames(seq_dir, fps, resize_to);
+id = load_x2k_frames(seq_dir, fps, resize_to);
 
 Y = id.Y;
 t_us = id.t_us;

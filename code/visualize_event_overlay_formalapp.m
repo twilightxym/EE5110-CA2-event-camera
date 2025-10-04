@@ -153,7 +153,7 @@ end
 % %
 % % INPUTS:
 % %   ax            - target axes to draw on; if empty, a new figure+axes will be created.
-% %   video_data    - struct from load_x4k_frames (fields: t_us, H, W, N)
+% %   video_data    - struct from load_x2k_frames (fields: t_us, H, W, N)
 % %   sorted_events - struct with fields t, x, y, p (already time-sorted)
 % %   video_path    - path to original color video
 % %   accum_time    - accumulation window in seconds (e.g., 0.01 = 10 ms)

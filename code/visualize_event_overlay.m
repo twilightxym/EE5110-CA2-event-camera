@@ -1,13 +1,13 @@
 function visualize_event_overlay(video_data, sorted_events, video_path, accum_time)
 % VISUALIZE_EVENT_OVERLAY 
 % Overlay ON/OFF events on original color video frames, with timing aligned
-% to downsampled video from load_x4k_frames.
+% to downsampled video from load_x2k_frames.
 % Adaptive accumulation logic: 
 % - accumtime < framedt: Use [tk, tk+accumtime) 
 % - accumtime >= framedt: Use [tk, t_{k+1}] to avoid future events ahead of time
 %
 % Inputs:
-%   video_data    - struct from load_x4k_frames (fields: t_us, H, W, N)
+%   video_data    - struct from load_x2k_frames (fields: t_us, H, W, N)
 %   sorted_events - struct with fields t, x, y, p
 %   video_path    - path to original color video
 %   accum_time    - accumulation window in seconds (e.g., 0.01 = 10 ms)
